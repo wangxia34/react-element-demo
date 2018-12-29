@@ -1,0 +1,12 @@
+.chart-div {
+    /*width: 35vw;*/
+    margin: 0 auto;
+}
+.el-card {
+    margin-top: 2vh;
+}
+h2 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
