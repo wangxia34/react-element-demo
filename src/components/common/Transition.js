@@ -1,12 +1,9 @@
 import React from 'react';
-import { Transition, TransitionGroup, CSSTransition } from 'react-transition-group';
+import { Transition } from 'react-transition-group';
 
 
 //自己简单的封装了一个，该有的参数都由了，可以自行粘贴在自己的代码里面去试试。
 class Fade extends React.Component {
-    constructor(props) {
-        super(props);
-    }
     done =() => {
         // console.log('结束了')
     };
@@ -37,7 +34,7 @@ class Fade extends React.Component {
         this.props.self()
     };
     render() {
-        const { in: inProp, dur} = this.props;
+        const { in: inProp} = this.props;
         const defaultStyle = {
             transition: `transform ${300}ms ease-in-out, opacity ${300}ms ease-in-out`,
             transform: 'translateX(100px)',

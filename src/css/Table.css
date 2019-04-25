@@ -1,0 +1,28 @@
+.container {
+    padding-bottom: 70px !important;
+}
+
+.handle-box {
+    margin-bottom: 20px;
+}
+
+.handle-select {
+    width: 120px;
+}
+
+.handle-input {
+    width: 300px;
+    display: inline-block;
+}
+.del-dialog-cnt{
+    font-size: 16px;
+    text-align: center
+}
+.table{
+    width: 100%;
+    font-size: 14px;
+}
+.pagination {
+    float: right;
+    margin: 20px 0;
+}

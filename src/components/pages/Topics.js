@@ -1,50 +1,7 @@
 import React from 'react';
-import Fade from '../components/Transition'
-import { Button, Card } from 'element-react';
-import { Transition, TransitionGroup, CSSTransition } from 'react-transition-group';
-import styled from 'styled-components';
-
-const TopicsDivClass = styled.div`
-  .star {
-    display: inline-block;
-    margin-left: 0.5rem;
-    transform: scale(1.25);
-  }
-  .star-enter {
-    opacity: 0.01;
-    transform: translateY(-100%) scale(0.75);
-  }
-  .star-enter-active {
-    opacity: 1;
-    transform: translateY(0%) scale(1.25);
-    transition: all 300ms ease-out;
-  }
-  .star-exit {
-    opacity: 1;
-    transform: scale(1.25);
-  }
-  .star-exit-active {
-    opacity: 0;
-    transform: scale(4);
-    transition: all 300ms ease-in;
-  }
-
-  .fade-enter {
-    opacity: 0.01;
-  }
-  .fade-enter-active {
-    opacity: 1;
-    transition: opacity 500ms ease-in;
-  }
-  .fade-exit {
-    opacity: 1;
-  }
-  .fade-exit-active {
-    opacity: 0.01;
-    transition: opacity 500ms ease-in;
-  }
-
-`;
+import Fade from '../common/Transition'
+import { Button } from 'element-react';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 let num = 1;
 class Topics extends React.Component {

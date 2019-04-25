@@ -13,31 +13,59 @@ a {
   text-decoration: none;
   color: inherit;
 }
+html, body, #root {
+    width: 100%;
+    height: 100%;
+}
+
+/*  公共配置  */
+.mr10 {
+    margin-right: 10px;
+}
+.el-checkbox__label {
+    padding-left: 0;
+}
+.red{
+    color: #ff0000;
+}
+/*      end   */
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
 .app-div {
-    height: 100vh;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+.app-header {
+    height: 8vh;
+    width: 100%;
+    background-color: #242f42;
+}
+
+.app-mainBody {
+    height: 92vh;
+    width: 100%;
     display: flex;
 }
-.app-div>div {
-    display: inline-block;
+.app-mainBody>div {
     box-sizing: border-box;
 }
 .app-sidebar {
-    height: 100%;
     flex: 1;
+    height: 100%;
+}
+.app-right {
+    flex: 7;
+    height: 100%;
+    box-sizing: border-box;
 }
 .app-content {
-    flex: 10;
-    height: 100%;
-    width: auto;
+    height: 93%;
     padding: 10px;
-    overflow-y: auto;
-    box-sizing: border-box;
+    overflow: auto;
 }
 .user- {
     height: 10vh;
@@ -62,9 +90,190 @@ code {
     /*padding: 0 0 0 2rem;*/
 }
 .el-menu-vertical-demo {
-  height: 90vh;
+  height: 82vh;
   overflow: auto;
 }
 .el-menu-vertical-demo::-webkit-scrollbar {
   display: none;
+}
+
+/*   tags    start     */
+.tags {
+    position: relative;
+    height: 30px;
+    background: #fff;
+    padding-right: 120px;
+    box-shadow: 0 5px 10px #ddd;
+}
+
+.tags-li {
+    float: left;
+    margin: 3px 5px 2px 3px;
+    border-radius: 3px;
+    font-size: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    height: 23px;
+    line-height: 23px;
+    border: 1px solid #e9eaec;
+    background: #fff;
+    padding: 0 5px 0 12px;
+    vertical-align: middle;
+    color: #666;
+    -webkit-transition: all .3s ease-in;
+    -moz-transition: all .3s ease-in;
+    transition: all .3s ease-in;
+}
+
+.tags-li:not(.active):hover {
+    background: #f8f8f8;
+}
+
+.tags-li.active {
+    color: #fff;
+    border: 1px solid #409EFF;
+    background-color: #409EFF;
+}
+
+.tags-li-title {
+    float: left;
+    max-width: 80px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-right: 5px;
+    color: #666;
+}
+
+.tags-li.active .tags-li-title {
+    color: #fff;
+}
+
+.tags-close-box {
+    position: absolute;
+    right: 0;
+    top: 0;
+    box-sizing: border-box;
+    padding-top: 1px;
+    text-align: center;
+    width: 110px;
+    height: 30px;
+    background: #fff;
+    box-shadow: -3px 0 15px 3px rgba(0, 0, 0, .1);
+    z-index: 10;
+}
+
+.tags-li-icon {
+    margin: 0 0.2rem;
+}
+.tags-li-icon i.el-icon-close {
+    font-size: 8px;
+}
+
+/*     tags      end      */
+
+
+/*     header      start    */
+.header {
+    width: 100%;
+    height: 100%;
+    color: white;
+}
+.collapse-btn{
+    float: left;
+    padding: 0 21px;
+    cursor: pointer;
+    line-height: 8vh;
+}
+.header .logo{
+    float: left;
+    width: 250px;
+    line-height: 8vh;
+}
+.header-right{
+    float: right;
+    padding-right: 50px;
+}
+.header-user-con{
+    display: flex;
+    height: 8vh;
+    align-items: center;
+}
+.btn-fullscreen{
+    margin-right: 5px;
+}
+i.icon-pc-quanping, i.icon-xiaoxishezhi {
+    font-size: 22px;
+}
+.btn-bell, .btn-fullscreen{
+    /*position: relative;*/
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    border-radius: 15px;
+    cursor: pointer;
+}
+.btn-bell .btn-bell-text {
+    position: relative;
+}
+.btn-bell-badge{
+    position: absolute;
+    right: 0;
+    top: -2px;
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background: #f56c6c;
+    color: #fff;
+}
+.user-name {
+    margin-left: 10px;
+    line-height: 8vh;
+}
+.header-user-avator {
+    margin-left: 20px;
+}
+.header-user-avator img {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.user-name .el-dropdown-menu {
+    background-color: #324157;
+    z-index: 200;
+}
+/*     header      end      */
+
+
+/*    login     start      */
+.login {
+    width: 100%;
+    height: 100%;
+    background-color: #324157;
+    position: relative;
+}
+
+.login-form {
+    width: 330px;
+    height: 25vh;
+    background-color: #dddddd;
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    margin-left: -165px;
+    border-radius: 6px;
+    padding: 5vh 20px 0 0;
+}
+/*    login     end      */
+
+
+.crumbs {
+    margin: 10px 0;
+}
+.container {
+    padding: 30px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { chartsData } from '../config/ChartData';
+import { chartsData } from '../../config/Data/ChartData';
 import { Layout, Card } from 'element-react';
 import { Line, Bar, Doughnut, Pie, HorizontalBar, Radar, Polar, Bubble, Scatter } from 'react-chartjs-2';
 import color from 'rcolor';
@@ -110,12 +110,11 @@ class Charts extends React.Component {
         this.setState({inputValue: event.target.value});
     }
     
-    componentWillMount() {
+    componentDidMount() {
         this.setState({
             inputValue: JSON.stringify(this.state.LegendOptsData.legendOpts, null, 2)
         });
         setInterval(() => {
-            
             this.setState({
                 DynamicDoughnutData: chartsData.getDynamicDoughnutData(),
                 RandomizedLineData: this.getRandomizedLineData(),

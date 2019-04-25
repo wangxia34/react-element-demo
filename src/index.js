@@ -1,22 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware } from 'redux'
-import { Provider } from 'react-redux'
 import Route from './config/Route';
-import reducer from './Reducer';
 import './icon/iconfont.css';
 import 'element-theme-default';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
-const store = createStore(
-    reducer
-);
+import LoginState from "./config/mobx/LoginState";
 
 ReactDOM.render(
-    <Provider store={store}>
-        <Route location="1" />
-    </Provider>,
+    <Route auth={LoginState} />,
     document.getElementById('root')
 );
 

@@ -1,8 +1,7 @@
 import React from 'react';
-import { Layout, Card, Progress, Button, Table, Checkbox } from 'element-react';
-import '../css/Home.css';
-
-
+import { Layout, Card, Progress, Button, Table, Checkbox, Dropdown } from 'element-react';
+import { Bar, Line } from 'react-chartjs-2';
+import '../../css/Home.css';
 
 class Home extends React.Component {
     constructor() {
@@ -69,36 +68,45 @@ class Home extends React.Component {
                     status: true,
                 }
             ],
-            data: [
-                {
-                    name: '2018/09/04',
-                    value: 1083
-                },
-                {
-                    name: '2018/09/05',
-                    value: 941
-                },
-                {
-                    name: '2018/09/06',
-                    value: 1139
-                },
-                {
-                    name: '2018/09/07',
-                    value: 816
-                },
-                {
-                    name: '2018/09/08',
-                    value: 327
-                },
-                {
-                    name: '2018/09/09',
-                    value: 228
-                },
-                {
-                    name: '2018/09/10',
-                    value: 1065
-                }
-            ]
+            data1: {
+                labels: ['2018/09/04', '2018/09/05', '2018/09/06', '2018/09/07', '2018/09/08', '2018/09/09', '2018/09/10'],
+                datasets: [
+                    {
+                        label: '最近七天每天的用户访问量',
+                        backgroundColor: 'rgba(255,99,132,0.2)',
+                        borderColor: 'rgba(255,99,132,1)',
+                        borderWidth: 1,
+                        hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+                        hoverBorderColor: 'rgba(255,99,132,1)',
+                        data: [1083, 941, 1139, 816, 327, 228, 1065]
+                    }
+                ]
+            },
+            data2: {
+                labels: ['2018/09/04', '2018/09/05', '2018/09/06', '2018/09/07', '2018/09/08', '2018/09/09', '2018/09/10'],
+                datasets: [
+                    {
+                        label: '最近七天用户访问趋势',
+                        lineTension: 0.1,
+                        backgroundColor: 'rgba(75,192,192,0.4)',
+                        borderColor: 'rgba(75,192,192,1)',
+                        borderCapStyle: 'butt',
+                        borderDash: [],
+                        borderDashOffset: 0.0,
+                        borderJoinStyle: 'miter',
+                        pointBorderColor: 'rgba(75,192,192,1)',
+                        pointBackgroundColor: '#fff',
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+                        pointHoverBorderColor: 'rgba(220,220,220,1)',
+                        pointHoverBorderWidth: 2,
+                        pointRadius: 1,
+                        pointHitRadius: 10,
+                        data: [1083, 941, 1139, 816, 327, 228, 1065]
+                    }
+                ]
+            }
         };
     }
     
@@ -116,6 +124,8 @@ class Home extends React.Component {
     }
     
     componentDidMount() {
+        
+        
         this.setState({
             root: this.state.name === 'admin' ? '超级管理员' : '普通用户'
         });
@@ -128,7 +138,7 @@ class Home extends React.Component {
                     <Layout.Col span="8">
                         <Card style={{height:"252px"}}>
                             <div className="user-info">
-                                <img src={require("../images/abc.png")} className="user-avator" alt=""/>
+                                <img src={require("../../images/abc.png")} className="user-avator" alt=""/>
                                 <div className="user-info-cont">
                                     <div className="user-info-name">{this.state.name}</div>
                                     <div>{this.state.root}</div>
@@ -202,12 +212,18 @@ class Home extends React.Component {
                     </Layout.Col>
                 </Layout.Row>
                 <Layout.Row gutter="20">
-                    <Layout.Col span="10">
-                    
+                    <Layout.Col span="12">
+                        <Card>
+                            <Bar data={this.state.data1}/>
+                        </Card>
                     </Layout.Col>
-                    <Layout.Col span="6"><div className="grid-content bg-purple"></div></Layout.Col>
-                    <Layout.Col span="8"><div className="grid-content bg-purple"></div></Layout.Col>
+                    <Layout.Col span="12">
+                        <Card>
+                            <Line data={this.state.data2} />
+                        </Card>
+                    </Layout.Col>
                 </Layout.Row>
+                
             </div>
         );
     }

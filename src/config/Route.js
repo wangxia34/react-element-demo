@@ -1,105 +1,66 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import styled from 'styled-components';
-
+import { Router, Route, Redirect, Switch } from "react-router-dom";
+import history from './history';
+import {sidebarData} from "./Data/sidebarData";
+import AllComponents from "./RouteUpdata";
+import { observer } from 'mobx-react';
 import App from '../App';
-import Home from '../pages/Home'
-import Charts from '../pages/Charts'
-import Topics from "../pages/Topics";
+import Login from '../components/pages/Login';
 
-const RouterAnimationClass = styled.div`
-    .fade-appear,
-    .fade-enter {
-        opacity: 0;
-    }
-
-    .fade-appear-active,
-    .fade-enter-active {
-        transition: opacity 0.3s linear;
-        opacity: 1;
-    }
-
-    .fade-exit {
-        transition: opacity 0.2s linear;
-        opacity: 1;
-    }
-
-    .fade-exit-active {
-        opacity: 0;
-    }
-
-    .spread-appear,
-    .spread-enter {
-        opacity: 0.5;
-        transform: scale(0) rotate(30deg);
-    }
-
-    .spread-appear-active,
-    .spread-enter-active {
-        opacity: 1;
-        transform: scale(1) rotate(0);
-        transition: transform 0.3s ease-in-out;
-    }
-
-    .spread-exit {
-        transition: transform 0.2s ease-in-out;
-        transform: scale(1.2) rotate(-30deg);
-    }
-
-    .spread-exit-active {
-        transform: scale(0) rotate(0);
-    }
-
-    .page-content {
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        width: 100%;
-    }
-`;
-
+@observer
 class AppRouter extends Component {
-    constructor(props) {
-        super(props);
-    }
+    requireLogin = (component) => {
+        const user = this.props.auth.activeRoute;
+        if (process.env.NODE_ENV === 'production' && !user.name) {
+            return <Redirect to={'/login'} />;
+        }
+        return component;
+    };
     
     render() {
-        const { location } = this.props;
-        return (
-            <RouterAnimationClass>
-                <Router >
-                    <App>
-                        <TransitionGroup>
-                            <CSSTransition
-                                key={location.key}
-                                classNames={
-                                    ['fade', 'spread'][parseInt(Math.random() * 2, 10)]
-                                }
-                                timeout={1000}>
-            
-                                <Switch>
-                                    <Route path="/home" component={Home}/>
-                                    <Route path="/charts" component={Charts}/>
-                                    <Route path="/topics" component={Topics}/>
-                                    {/*<Route path="topics?type=:name" component={Topics}/>*/}
-                                    {/*<Route path="topics/new" component={NewTopic}/>*/}
-                                    {/*<Route path="topics/:id" component={Topic}/>*/}
-                                    {/*<Route path="remote" component={Remote}/>*/}
-                                    {/*<Route path="programmer" component={Programmer}/>*/}
-                                    {/*<Route path="jobs" component={Jobs}/>*/}
-                                    {/*<Route path="sites" component={Jobs}/>*/}
-                                    <Redirect from="/" to="/home" />
-                                </Switch>
+        const SideTree = [];
+        sidebarData.forEach(item => {
+            if (item.children) {
+                item.children.map(menuItem => {
+                    const Component = AllComponents[menuItem.component];
+                    SideTree.push(
+                        <Route
+                            key={menuItem.key}
+                            exact
+                            path={menuItem.path}
+                            render={props => {
+                                return this.requireLogin(<Component {...props} />)
+                            }}
+                        />
+                    )
+                })
+            } else {
+                const Component = AllComponents[item.component];
+                SideTree.push(
+                    <Route
+                        key={item.key}
+                        exact
+                        path={item.path}
+                        render={props => {
+                            return this.requireLogin(<Component {...props} />)
+                        }}
+                    />
+                )
+            }
+        });
         
-                            </CSSTransition>
-                        </TransitionGroup>
-                        
+        return (
+            <Router history={history}>
+                <Switch>
+                    <Route path="/login" render={props => (<Login {...props} auth={this.props.auth} />)}/>
+                    <App auth={this.props.auth}>
+                        <Switch>
+                            {SideTree}
+                            <Redirect from="/" to="/home" />
+                        </Switch>
                     </App>
-                </Router>
-            </RouterAnimationClass>
+                </Switch>
+            </Router>
         )
     }
 }
